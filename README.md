@@ -60,7 +60,7 @@ Citation
 @inproceedings{
     yeh2017semantic,
     title={Semantic Image Inpainting with Deep Generative Models},
-    author={Yeh$^\ast$, Raymond A. and Chen$^\ast$, Chen and Lim, Lim, Teck Yian and Schwing Alexander G. and Hasegawa-Johnson, Mark and Do, Minh N.},
+    author={Yeh$^\ast$, Raymond A. and Chen$^\ast$, Chen and Lim, Teck Yian and Schwing Alexander G. and Hasegawa-Johnson, Mark and Do, Minh N.},
     booktitle={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition},
     year={2017},
     note = {$^\ast$ equal contribution},
