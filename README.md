@@ -42,6 +42,17 @@ Files
  - src/inpaint.py - command line application
  - src/external - external code used. Citations in code
  - graphs/dcgan-100.pb - frozen pretrained DCGAN with 100-dimension latent space
+ 
+Weights
+-------
+
+Git doesn't work nicely with large binary files. Please download our weights from 
+[here](https://uofi.box.com/s/52jco2fw2b6q4g4k7ob4jbfwysfoh6st), trained on the 
+[CelebA dataset](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html).
+
+Alternatively, train your own GAN using your dataset. Conversion from checkpoint to 
+Tensorflow ProtoBuf format can be done with 
+[this script](https://gist.github.com/moodoki/e37a85fb0258b045c005ca3db9cbc7f6)
 
 
 Running
