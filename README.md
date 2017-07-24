@@ -47,7 +47,7 @@ Weights
 -------
 
 Git doesn't work nicely with large binary files. Please download our weights from 
-[here](https://uofi.box.com/s/52jco2fw2b6q4g4k7ob4jbfwysfoh6st), trained on the 
+[here](https://www.dropbox.com/s/3uo97fzu4jfi2ms/dcgan-100.pb?dl=0), trained on the 
 [CelebA dataset](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html).
 
 Alternatively, train your own GAN using your dataset. Conversion from checkpoint to 
