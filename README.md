@@ -58,11 +58,21 @@ Tensorflow ProtoBuf format can be done with
 Running
 -------
 
+
+Generate multiple candidates for completion:
 ```
 python src/inpaint.py --model_file graphs/dcgan-100.pb \
     --maskType center --in_image testimages/face1.png \
     --nIter 1000 --blend
 ```
+
+Generate completions for multiple input images:
+```
+python src/inpaint.py --model_file graphs/dcgan-100.pb \
+    --maskType center --inDir testimages \
+    --nIter 1000 --blend
+```
+
 
 Citation
 --------

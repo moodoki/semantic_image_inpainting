@@ -3,6 +3,7 @@ import scipy.misc
 import argparse
 import os
 import numpy as np
+from glob import glob
 
 from model import ModelInpaint
 
@@ -28,7 +29,11 @@ parser.add_argument('--maskThresh', type=int,
                     default=128,
                     help='Threshold in case input mask is not binary')
 parser.add_argument('--in_image', type=str, default=None,
-                    help='Input Image')
+                    help='Input Image (ignored if inDir is specified')
+parser.add_argument('--inDir', type=str, default=None,
+                    help='Path to input images')
+parser.add_argument('--imgExt', type=str, default='png',
+                    help='input images file extension')
 
 args = parser.parse_args()
 
@@ -92,7 +97,15 @@ def main():
     saveimages(imout)
 
     mask = gen_mask(args.maskType)
-    in_img = loadimage(args.in_image)
+    if args.inDir is not None:
+        imgfilenames = glob( args.inDir + '/*.' + args.imgExt )
+        print('{} images found'.format(len(imgfilenames)))
+        in_img = np.array([loadimage(f) for f in imgfilenames])
+    elif args.in_img is not None:
+        in_img = loadimage(args.in_image)
+    else:
+        print('Input image needs to be specified')
+        exit(1)
 
     inpaint_out, g_out = m.inpaint(in_img, mask, args.blend)
     scipy.misc.imsave(os.path.join(args.outDir, 'mask.png'), mask)

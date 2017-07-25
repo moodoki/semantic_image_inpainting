@@ -58,7 +58,7 @@ class ModelInpaint():
         sample_out = self.sess.run(self.go, feed_dict={self.gi: z})
         return sample_out
 
-    def preprocess(self, image, imask, useWeightedMask = True, nsize=7):
+    def preprocess(self, images, imask, useWeightedMask = True, nsize=7):
         """Default preprocessing pipeline
         Prepare the data to be fed to the network. Weighted mask is computed
         and images and masks are duplicated to fill the batch.
@@ -70,7 +70,7 @@ class ModelInpaint():
         Returns:
             None
         """
-        image = ModelInpaint.imtransform(image)
+        images = ModelInpaint.imtransform(images)
         if useWeightedMask:
             mask = ModelInpaint.createWeightedMask(imask, nsize)
         else:
@@ -83,9 +83,20 @@ class ModelInpaint():
         self.masks_data = np.repeat(mask[np.newaxis, :, :, :],
                                     self.batch_size,
                                     axis=0)
-        self.images_data = np.repeat(image[np.newaxis, :, :, :],
-                                     self.batch_size,
-                                     axis=0)
+
+        #Generate multiple candidates for completion if single image is given
+        if len(images.shape) is 3:
+            self.images_data = np.repeat(images[np.newaxis, :, :, :],
+                                         self.batch_size,
+                                         axis=0)
+        elif len(images.shape) is 4:
+            #Ensure batch is filled
+            num_images = images.shape[0]
+            self.images_data = np.repeat(images[np.newaxis, 0, :, :, :],
+                                         self.batch_size,
+                                         axis=0)
+            ncpy = min(num_images, self.batch_size)
+            self.images_data[:ncpy, :, :, :] = images[:ncpy, :, :, :].copy()
 
     def postprocess(self, g_out, blend = True):
         """Default post processing pipeline
