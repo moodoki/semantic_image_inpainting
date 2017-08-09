@@ -101,7 +101,7 @@ def main():
         imgfilenames = glob( args.inDir + '/*.' + args.imgExt )
         print('{} images found'.format(len(imgfilenames)))
         in_img = np.array([loadimage(f) for f in imgfilenames])
-    elif args.in_img is not None:
+    elif args.in_image is not None:
         in_img = loadimage(args.in_image)
     else:
         print('Input image needs to be specified')
