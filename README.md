@@ -1,7 +1,7 @@
-Semantic Image Inpainting With Deep Generative Models
+Semantic Image Inpainting With Deep Generative Models and image restoration with GANS
 =====================================================
-[[Project]](http://www.isle.illinois.edu/~yeh17/projects/semantic_inpaint/index.html)
-[[arXiv]](https://arxiv.org/abs/1607.07539)
+[[Inpainting CVPR2017]](http://www.isle.illinois.edu/~yeh17/projects/semantic_inpaint/index.html)
+[[Image Restore ICASSP2018]](https://teckyianlim.me/image-restore/image-restore.html)
 
 Tensorflow implementation for semantic image inpainting:
 
@@ -10,8 +10,8 @@ Tensorflow implementation for semantic image inpainting:
 Semantic Image Inpainting With Deep Generative Models
 
 [Raymond A. Yeh*](http://www.isle.illinois.edu/~yeh17/),
-[Chen Chen*](http://cchen156.web.engr.illinois.edu/),
-[Teck Yian Lim](http://tlim11.web.engr.illinois.edu/),
+[Teck Yian Lim*](http://tlim11.web.engr.illinois.edu/),
+[Chen Chen](http://cchen156.web.engr.illinois.edu/),
 [Alexander G. Schwing](http://www.alexander-schwing.de/),
 [Mark Hasegawa-Johnson](http://www.ifp.illinois.edu/~hasegawa/),
 [Minh N. Do](http://minhdo.ece.illinois.edu/)

@@ -5,17 +5,16 @@ import os
 import numpy as np
 from glob import glob
 
-from model_inpaint import ModelInpaint
-from helper import loadimage, saveimages
+from model_inpaint_test import ModelInpaintTest as ModelInpaint
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--model_file', type=str, help="Pretrained GAN model")
-parser.add_argument('--lr', type=float, default=0.0003)
+parser.add_argument('--lr', type=float, default=0.01)
 parser.add_argument('--momentum', type=float, default=0.9)
-parser.add_argument('--nIter', type=int, default=3000)
+parser.add_argument('--nIter', type=int, default=1000)
 parser.add_argument('--imgSize', type=int, default=64)
 parser.add_argument('--batch_size', type=int, default=64)
-parser.add_argument('--lambda_p', type=float, default=0.2)
+parser.add_argument('--lambda_p', type=float, default=0.1)
 parser.add_argument('--checkpointDir', type=str, default='checkpoint')
 parser.add_argument('--outDir', type=str, default='completions')
 parser.add_argument('--blend', action='store_true', default=False,
@@ -39,21 +38,21 @@ parser.add_argument('--imgExt', type=str, default='png',
 args = parser.parse_args()
 
 
-#def loadimage(filename):
-#    img = scipy.misc.imread(filename, mode='RGB').astype(np.float)
-#    return img
-#
-#
-#def saveimages(outimages, prefix='samples'):
-#    numimages = len(outimages)
-#
-#    if not os.path.exists(args.outDir):
-#        os.mkdir(args.outDir)
-#
-#    for i in range(numimages):
-#        filename = '{}_{}.png'.format(prefix, i)
-#        filename = os.path.join(args.outDir, filename)
-#        scipy.misc.imsave(filename, outimages[i, :, :, :])
+def loadimage(filename):
+    img = scipy.misc.imread(filename, mode='RGB').astype(np.float)
+    return img
+
+
+def saveimages(outimages, prefix='samples'):
+    numimages = len(outimages)
+
+    if not os.path.exists(args.outDir):
+        os.mkdir(args.outDir)
+
+    for i in range(numimages):
+        filename = '{}_{}.png'.format(prefix, i)
+        filename = os.path.join(args.outDir, filename)
+        scipy.misc.imsave(filename, outimages[i, :, :, :])
 
 
 def gen_mask(maskType):
@@ -94,8 +93,8 @@ def main():
     m = ModelInpaint(args.model_file, args)
 
     # Generate some samples from the model as a test
-    #imout = m.sample()
-    #saveimages(imout)
+    imout = m.sample()
+    saveimages(imout)
 
     mask = gen_mask(args.maskType)
     if args.inDir is not None:
@@ -108,12 +107,11 @@ def main():
         print('Input image needs to be specified')
         exit(1)
 
-    #saveimages(in_img*mask[:,:,np.newaxis], 'inpaint_in', imgfilenames, args.outDir)
     inpaint_out, g_out = m.restore_image(in_img, mask, args.blend)
     scipy.misc.imsave(os.path.join(args.outDir, 'mask.png'), mask)
+    saveimages(g_out, 'gen')
+    saveimages(inpaint_out, 'inpaint')
 
-    saveimages(g_out, 'inpaint_gen', imgfilenames, args.outDir)
-    saveimages(inpaint_out, 'inpaint', imgfilenames, args.outDir)
 
 if __name__ == '__main__':
     main()
