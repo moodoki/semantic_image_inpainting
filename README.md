@@ -25,7 +25,11 @@ Overview
 Implementation of proposed cost function and backpropogation to input. 
 
 In this code release, we load a pretrained DCGAN model, and apply our proposed
-objective function for the task of image completion
+objective function for the task of image completion. 
+
+Notes
+-----
+To reproduce the CVPR2017 work, run the inpainting example.
 
 Dependencies
 ------------
